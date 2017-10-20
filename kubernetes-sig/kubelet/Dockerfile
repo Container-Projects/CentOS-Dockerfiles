@@ -5,7 +5,7 @@ MAINTAINER The CentOS Project <cloud-ops@centos.org>
 # properly in a container, so we skip installing it
 
 # Containerized kubelet requires nsenter
-RUN yum install -y util-linux ethtool systemd-udev e2fsprogs xfsprogs && yum clean all
+RUN yum install -y iptables util-linux ethtool systemd-udev e2fsprogs xfsprogs && yum clean all
 
 # cAdvisor wants /etc/machine-id
 # containerized kubelet needs /:/rootfs and /var/lib/kubelet to mount volumes
