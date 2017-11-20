@@ -1,0 +1,7 @@
+From ubuntu:14.04
+
+COPY ./go-http /root/myhttpserver
+RUN chmod +x /root/myhttpserver
+
+WORKDIR /root
+ENTRYPOINT ["/root/myhttpserver"]

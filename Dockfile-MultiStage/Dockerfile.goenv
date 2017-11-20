@@ -1,0 +1,8 @@
+FROM golang:latest
+
+WORKDIR /go/src
+COPY go-http.go  .
+
+RUN  CGO_ENABLED=0 go build -o myhttpserver ./go-http.go
+
+
