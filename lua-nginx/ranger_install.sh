@@ -5,7 +5,6 @@
 export LUAJIT_LIB=/root/luajit/lib
 export LUAJIT_INC=/root/luajit/include/luajit-2.0
 
-
 cd /root/nginx
 
 tar -zxf nginx-1.12.2.tar.gz
@@ -19,6 +18,8 @@ patch -p1 < /root/nginx/ngx_http_proxy_connect_module-master/proxy_connect.patch
 
 ./configure --prefix=/root/nginx/ \
           --with-ld-opt="-Wl,-rpath,/root/luajit/lib" \
+          --with-http_stub_status_module \
+          --with-http_ssl_module \
           --add-module=/root/nginx/ngx_devel_kit-0.2.14 \
           --add-module=/root/nginx/lua-nginx-module-0.10.12rc2 \
           --add-module=/root/nginx/ngx_http_proxy_connect_module-master
@@ -32,7 +33,11 @@ chmod 0666 /tmp/shell.sock
 mkdir /root/luajit/lib/resty
 cp /root/luajit/shell.lua /root/luajit/resty
 
-#/root/nginx/sbin/nginx -p /root/var/run/nginx -c /root/nginx/conf/nginx.conf
-/root/nginx/sbin/nginx -p /root/var/run/nginx -c /root/nginx/conf/ranger_II.conf
+ls /root/nginx
+
+sed -i s^ranger_install^/root/nginx/ranger^g /root/nginx/ranger/http_block.conf
+sed -i s^ranger_install^/root/nginx/ranger^g /root/nginx/conf/ranger.conf
+
+/root/nginx/sbin/nginx -p /root/var/run/nginx/ -c /root/nginx/conf/ranger.conf
 
 tail -200f /root/var/run/nginx/logs/access.log
