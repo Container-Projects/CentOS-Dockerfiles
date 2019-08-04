@@ -9,7 +9,11 @@ RUN yum -y --setopt=tsflags=nodocs update && \
     yum -y --setopt=tsflags=nodocs install httpd && \
     yum clean all
 
+RUN rm /etc/httpd/conf.d/welcome*
+
 EXPOSE 80
+
+VOLUME [ "/var/www/html" ]
 
 # Simple startup script to avoid some issues observed with container restart
 ADD run-httpd.sh /run-httpd.sh
