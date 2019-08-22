@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -eo pipefail
+
+
+
+# Move assemble/run scripts to new location.
+
+
+
+mkdir /opt/app-root/s2i
+
+
+
+mv /tmp/src/* /opt/app-root/s2i
