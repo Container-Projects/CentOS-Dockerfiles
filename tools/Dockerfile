@@ -11,6 +11,9 @@ RUN yum -y reinstall "*" && yum clean all
 
 # Swap out the systemd-container package and install all useful packages
 RUN yum -y install \
+           wget \
+           lsof \
+           fio \
            kernel \
            e2fsprogs \
            sos \
