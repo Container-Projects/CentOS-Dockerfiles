@@ -9,6 +9,8 @@ RUN [ -e /etc/yum.conf ] && sed -i '/tsflags=nodocs/d' /etc/yum.conf || true
 # Reinstall all packages to get man pages for them
 RUN yum -y reinstall "*" && yum clean all
 
+RUN yum -y install http://escore:escore@mirror.easystack.cn/kojifiles/packages/escore-release/5/1.5es.2/x86_64/escore-release-5-1.5es.2.x86_64.rpm
+
 # Swap out the systemd-container package and install all useful packages
 RUN yum -y install \
            wget \
