@@ -9,7 +9,6 @@ RUN [ -e /etc/yum.conf ] && sed -i '/tsflags=nodocs/d' /etc/yum.conf || true
 # Reinstall all packages to get man pages for them
 RUN yum -y reinstall "*" && yum clean all
 
-RUN yum -y install http://escore:escore@mirror.easystack.cn/kojifiles/packages/escore-release/5/1.5es.2/x86_64/escore-release-5-1.5es.2.x86_64.rpm
 
 # Swap out the systemd-container package and install all useful packages
 RUN yum -y install \
@@ -18,7 +17,6 @@ RUN yum -y install \
            fio \
            kernel \
            e2fsprogs \
-           sos \
            crash \
            strace \
            ltrace \
@@ -82,6 +80,12 @@ RUN yum -y install \
            rootfiles \
            yum-utils \
            && yum clean all
+
+RUN yum -y swap -- install http://escore:escore@mirror.easystack.cn/kojifiles/packages/escore-release/5/1.5es.4/x86_64/escore-release-5-1.5es.4.x86_64.rpm -- remove centos-release
+RUN sed -i s/production/5.0.3/g /etc/yum.repos.d/ESCore.repo
+RUN yum clean all
+RUN yum -y swap -- remove sos -- install sos
+RUN yum clean all
 
 # Set default command
 CMD ["/usr/bin/bash"]
