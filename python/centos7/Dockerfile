@@ -11,7 +11,7 @@ RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 RUN yum -y install python-pip; yum clean all
 RUN pip install pypiserver \
-    && mkdir ~/data/packages
+    && mkdir -p ~/data/packages
 
 ADD . /src
 
