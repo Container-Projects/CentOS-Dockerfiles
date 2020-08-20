@@ -39,7 +39,7 @@ function launchsentinel() {
     sleep 10
   done
 
-  sentinel_conf=sentinel.conf
+  sentinel_conf=/data/sentinel.conf
 
   echo "sentinel monitor mymaster ${master} 6379 2" > ${sentinel_conf}
   echo "sentinel down-after-milliseconds mymaster 60000" >> ${sentinel_conf}
