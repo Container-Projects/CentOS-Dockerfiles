@@ -1,0 +1,14 @@
+FROM golang:alpine as builder
+
+WORKDIR /go/src
+COPY go-http.go .
+
+RUN go build -o myhttpserver ./go-http.go
+
+From alpine:latest
+
+WORKDIR /root/
+COPY --from=builder /go/src/myhttpserver .
+RUN chmod +x /root/myhttpserver
+
+ENTRYPOINT ["/root/myhttpserver"]
